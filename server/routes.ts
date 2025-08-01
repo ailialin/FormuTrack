@@ -37,7 +37,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const mfsList = await storage.getAllMfs();
       res.json(mfsList);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch MFS" });
+      console.error("Error fetching MFS:", error);
+      res.status(500).json({ message: "Failed to fetch MFS", error: error instanceof Error ? error.message : String(error) });
     }
   });
 
@@ -108,7 +109,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const materials = await storage.getAllRawMaterials();
       res.json(materials);
     } catch (error) {
-      res.status(500).json({ message: "Failed to fetch materials" });
+      console.error("Error fetching materials:", error);
+      res.status(500).json({ message: "Failed to fetch materials", error: error instanceof Error ? error.message : String(error) });
     }
   });
 
